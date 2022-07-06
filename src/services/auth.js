@@ -1,15 +1,14 @@
-import axios from "axios";
-import authHeader from "./auth-header";
+import customAxios from "../lib/customAxios";
 
 const API_URL = "http://localhost:8000/";
 class AuthService {
   login(email, password) {
-    return axios
-      .post(API_URL + "signin", { email, password });
+    return customAxios
+      .post("signin", { email, password });
   }
   checksession() {
-    return axios
-          .post(API_URL + "auth",{},{headers: authHeader()});
+    return customAxios
+          .post("auth");
   }
 }
 export default new AuthService();

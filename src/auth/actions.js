@@ -21,7 +21,7 @@ export const login = (username, password) => async dispatch => {
 export const reAuth = () => async dispatch => {
     try {
         const response = await AuthService.checksession();
-        localStorage.setItem("user", JSON.stringify(response.data));
+        console.log(response)
         dispatch(authLoginSuccess(response.data));
     } catch (error) {
         const message =

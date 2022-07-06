@@ -8,14 +8,12 @@ export function Auth(state = initialState, action) {
     switch (type) {
       case 'AUTH_LOGIN_SUCCESS':
         return {
-          ...state,
           isLoggedIn: true,
           user: payload,
           message: ''
         };
       case 'AUTH_LOGIN_FAIL':
         return {
-          ...state,
           isLoggedIn: false,
           user: null,
           message: payload
