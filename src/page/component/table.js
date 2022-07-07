@@ -1,7 +1,6 @@
 
 import { styled, useTheme,  alpha } from '@mui/material/styles';
-
-
+import {format} from 'date-fns'
 import Button from '@mui/material/Button';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -52,7 +51,7 @@ function TableCustom(props) {
                             </StyledTableCell>
                             <StyledTableCell align="center">{row.email}</StyledTableCell>
                             <StyledTableCell align="center">{name[row.roleId]}</StyledTableCell>
-                            <StyledTableCell align="center">{row.createdAt.split('T')[0]}</StyledTableCell>
+                            <StyledTableCell align="center">{format(new Date(row.createdAt),'PP')}</StyledTableCell>
                             <StyledTableCell align="center">{row.status}</StyledTableCell>
                             <StyledTableCell align="center">
                                 <Button>

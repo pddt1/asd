@@ -9,14 +9,13 @@ import { makeStyles } from '@mui/styles';
 import Grid from '@mui/material/Grid';
 
 import Button from '@mui/material/Button';
+import { useSnackbar } from 'notistack';
 
-import DialogTitle from '@mui/material/DialogTitle';
 import { logOut } from '../../auth/actions';
 import { createNewUser, getUserList } from '../actions';
 import Sidebar from './sidebar';
 import ModalDialog from './modal';
 import TableCustom from './table';
-import Error from './error';
 
 const useStyles = makeStyles( {
     root: {
@@ -52,16 +51,22 @@ const useStyles = makeStyles( {
   
 export default function Profile() {
     const classes = useStyles();
+    const { enqueueSnackbar } = useSnackbar();
 
     const [open, setOpen] = useState(false);
 
 
     const dispatch = useDispatch();
-    const {isSuccess,data,code,message,isLoading} = useSelector(state => state.Course);
+    const {isSuccess,data,isLoading} = useSelector(state => state.Course);
     useEffect(()=>{
         if(isSuccess){
             setOpen(false);
+            enqueueSnackbar('Created!',{variant: 'success'});
+          }
+        if(isSuccess===false){
+          enqueueSnackbar('Canot create user!',{variant: 'error'});
         }
+
     },[isSuccess])
 
     useEffect(() => {

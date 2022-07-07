@@ -4,7 +4,7 @@ import App from './App';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from "react-router-dom";
 import Store from './store';
-import { SnackbarProvider, useSnackbar } from 'notistack';
+import { SnackbarProvider } from 'notistack';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>

@@ -12,7 +12,7 @@ export default function PrivateRoute({ children }) {
   if (!isLoggedIn) {
     return <Navigate to="/login" />;
   }
-  if(user.roleId !== 2){
+  if(user.roleId !== COURSE_MANAGER_ROLE){
     return <Error code={403}/>;
   }
   return isLoggedIn ? children : <Navigate to="/login" />;

@@ -1,7 +1,6 @@
 import { useState,useEffect } from 'react'; 
 import { styled} from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import { useSelector } from 'react-redux';
 import { makeStyles } from '@mui/styles';
 
 import InputBase from '@mui/material/InputBase';
@@ -13,13 +12,9 @@ import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import { LoadingButton } from '@mui/lab';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { useSnackbar } from 'notistack';
-
-
+import { TEACHER_ROLE, COURSE_MANAGER_ROLE, ASSISTANT_ROLE } from '../../constant';
 
 const useStyles = makeStyles({
     icon: {
@@ -48,22 +43,22 @@ const useStyles = makeStyles({
   }));
 
 function ModalDialog(props) {
-    const { enqueueSnackbar } = useSnackbar();
+    // const { enqueueSnackbar } = useSnackbar();
     const classes = useStyles();
     const { open} = props;
-    const isSuccess = useSelector(state => state.Course.isSuccess);
+    // const isSuccess = useSelector(state => state.Course.isSuccess);
 
     const [form, setForm] = useState({
         fullname:'',
         email:'',
-        role:1
+        role: TEACHER_ROLE
     });
 
-    useEffect(() => {
-        if(isSuccess===false){
-            enqueueSnackbar('Canot create user!',{variant: 'error'});
-        }
-    },[isSuccess]);
+    // useEffect(() => {
+    //     if(isSuccess===false){
+    //         enqueueSnackbar('Canot create user!',{variant: 'error'});
+    //     }
+    // },[isSuccess]);
 
     useEffect(() => {
         if(!props.open){
@@ -120,9 +115,9 @@ function ModalDialog(props) {
                                 <MenuItem value="">
                                 <em>None</em>
                                 </MenuItem>
-                                <MenuItem value={1}>Teacher</MenuItem>
-                                <MenuItem value={2}>Course Manager</MenuItem>
-                                <MenuItem value={3}>Assistant</MenuItem>
+                                <MenuItem value={TEACHER_ROLE}>Teacher</MenuItem>
+                                <MenuItem value={COURSE_MANAGER_ROLE}>Course Manager</MenuItem>
+                                <MenuItem value={ASSISTANT_ROLE}>Assistant</MenuItem>
                             </Select>
                     </FormControl>
                 </Box>
