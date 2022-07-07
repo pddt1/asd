@@ -17,6 +17,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { useSnackbar } from 'notistack';
 
 
 
@@ -47,9 +48,10 @@ const useStyles = makeStyles({
   }));
 
 function ModalDialog(props) {
+    const { enqueueSnackbar } = useSnackbar();
     const classes = useStyles();
     const { open} = props;
-    const {isSuccess} = useSelector(state => state.Course.isSuccess);
+    const isSuccess = useSelector(state => state.Course.isSuccess);
 
     const [form, setForm] = useState({
         fullname:'',
@@ -57,6 +59,11 @@ function ModalDialog(props) {
         role:1
     });
 
+    useEffect(() => {
+        if(isSuccess===false){
+            enqueueSnackbar('Canot create user!',{variant: 'error'});
+        }
+    },[isSuccess]);
 
     useEffect(() => {
         if(!props.open){
@@ -69,7 +76,6 @@ function ModalDialog(props) {
     },[props.open])
     const handleChange = (e) =>{
         const {name,value} = e.target;
-        console.log(name,value);
         setForm(preVal => {
             return {
                 ...preVal,

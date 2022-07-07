@@ -27,21 +27,20 @@ export function Course(state = initialState, action) {
         case 'FECTH_COURSE_LIST':
             return {
                 data: [],
-               isLoading: true,
-               isSuccess: false
-            };
+               isLoading: true
+              };
         case 'FECTH_COURSE_LIST_SUCCESS':
             return {
                 data: payload,
                 isLoading: false,
-                isSuccess: true
+                isFetchingSuccess: true
             };
         case 'FECTH_COURSE_LIST_FAIL':
                 return {
                   ...state,
                   message: payload,
                   isLoading: false,
-                  isSuccess: false
+                  isFetchingSuccess: false
                 };
       default:
         return state;
