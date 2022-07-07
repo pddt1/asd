@@ -2,6 +2,7 @@ import AuthService from '../services/auth';
 export const authLoginSuccess = (user) => ({type: 'AUTH_LOGIN_SUCCESS',payload: user});
 export const authLoginFailed = (message) => ({type: 'AUTH_LOGIN_FAILED',payload: message});
 
+
 export const login = (username, password) => async dispatch => {
     try {
         const response = await AuthService.login(username,password);

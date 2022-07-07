@@ -17,9 +17,7 @@ customAxios.interceptors.response.use(
       if (error.response.status === 401) {
         window.location.href = '/login';
       }
-      // if (error.response.status === 403) {
-      //   window.location.href = '/';
-      // }
+      return error;
 });
 export default customAxios;
 

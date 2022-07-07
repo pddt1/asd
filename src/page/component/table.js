@@ -97,8 +97,8 @@ function TableCustom(props) {
             {
                 props.data.length?
                 (<TableBody>
-                    {props.data.map((row) => (
-                        <StyledTableRow key={row.id}>
+                    {props.data.map((row,index) => (
+                        <StyledTableRow key={index}>
                             <StyledTableCell component="th" scope="row">
                                 {row.fullname}
                             </StyledTableCell>

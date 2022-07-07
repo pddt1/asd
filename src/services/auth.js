@@ -10,5 +10,8 @@ class AuthService {
     return customAxios
           .post("auth");
   }
+  logOut(){
+    localStorage.removeItem("user");
+  }
 }
 export default new AuthService();

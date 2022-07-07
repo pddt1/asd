@@ -18,6 +18,7 @@ export function Auth(state = initialState, action) {
           user: null,
           message: payload
         };
+       
       default:
         return state;
     }

@@ -1,5 +1,5 @@
 const initialState = {
-    data:{},
+    data:[],
     isLoading: false,
     isSuccess: false
 
@@ -7,6 +7,12 @@ const initialState = {
 export function Course(state = initialState, action) {
     const { type, payload } = action;
     switch (type) {
+      case 'CREATE_COURSE':
+        return {
+            ...state,
+            isLoading: true,
+            isSuccess: false
+        };
       case 'CREATE_COURSE_SUCCESS':
         return {
             ...state,
@@ -16,18 +22,29 @@ export function Course(state = initialState, action) {
         };
       case 'CREATE_COURSE_FAIL':
         return {
+            ...state,
+            message: payload,
             isLoading:false,
             isSuccess:false
         };
+        case 'FECTH_COURSE_LIST':
+            return {
+                data: [],
+               isLoading: true,
+               isSuccess: false
+            };
         case 'FECTH_COURSE_LIST_SUCCESS':
             return {
                 data: payload,
-                isFecthingSuccess: true
+                isLoading: false,
+                isSuccess: true
             };
         case 'FECTH_COURSE_LIST_FAIL':
                 return {
-                  message: payload.message,
-                  isFecthingSuccess: false
+                  ...state,
+                  message: payload,
+                  isLoading: false,
+                  isSuccess: false
                 };
       default:
         return state;

@@ -1,23 +1,12 @@
 import { useState,useEffect } from 'react'; 
 import {useSelector, useDispatch} from 'react-redux';
 import { styled, useTheme,  alpha } from '@mui/material/styles';
+import AuthService from '../../services/auth';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import ArticleIcon from '@mui/icons-material/Article';
-import BookIcon from '@mui/icons-material/Book';
 import { makeStyles } from '@mui/styles';
 import Grid from '@mui/material/Grid';
 import SearchIcon from '@mui/icons-material/Search';
@@ -48,11 +37,12 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 import { createNewUser, getUserList } from '../actions';
-import { reAuth } from '../../auth/actions';
+import { reAuth,logOut } from '../../auth/actions';
 import Sidebar from './sidebar';
 import ModalDialog from './modal';
 import TableCustom from './table';
 import Error from './error';
+import ErrorDialog from './errornoti';
 const useStyles = makeStyles( {
     root: {
         padding: '2px',
@@ -92,17 +82,10 @@ export default function Profile() {
 
 
     const dispatch = useDispatch();
-    const {isSuccess,data,code,message} = useSelector(state => state.Course);
-
+    const {isSuccess,data,code,message,isLoading} = useSelector(state => state.Course);
     useEffect(()=>{
         if(isSuccess){
             setOpen(false);
-            // setForm({
-            //     name:'',
-            //     subject:'',
-            //     term:'',
-            //     schoolyear: ''
-            // });
         }
     },[isSuccess])
 
@@ -118,9 +101,12 @@ export default function Profile() {
         setOpen(false);
     };
 
+
     const handleSubmit = (name,email,role) => {
         dispatch(createNewUser(name,email,role));
     }
+
+
  
    
   return (
@@ -150,6 +136,7 @@ export default function Profile() {
                             onSubmit={handleSubmit}
                             isSuccess={isSuccess}
                             open={open}
+                            isLoading={isLoading}
                         />
                     </Box>
                     <Box sx={{mt:2}}>

@@ -1,7 +1,7 @@
 import { useState,useEffect } from 'react'; 
 import { styled} from '@mui/material/styles';
 import Box from '@mui/material/Box';
-
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@mui/styles';
 
 import InputBase from '@mui/material/InputBase';
@@ -11,7 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
-
+import { LoadingButton } from '@mui/lab';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -56,8 +56,21 @@ function ModalDialog(props) {
         email:'',
         role:1
     });
+
+    const {isSuccess} = useSelector(state => state.Course.isSuccess);
+
+    useEffect(() => {
+        if(!props.open){
+            setForm({
+                fullname:'',
+                email:'',
+                role:1
+            });
+        }
+    },[props.open])
     const handleChange = (e) =>{
         const {name,value} = e.target;
+        console.log(name,value);
         setForm(preVal => {
             return {
                 ...preVal,
@@ -95,6 +108,7 @@ function ModalDialog(props) {
                             <Select className={classes.select}
                                 labelId="demo-select-small"
                                 id="demo-select-small"
+                                name="role"
                                 value={form.role}
                                 onChange={handleChange}
                             >
@@ -108,8 +122,21 @@ function ModalDialog(props) {
                     </FormControl>
                 </Box>
                 <Box sx={{width:'100%',display:'flex',alignItems: 'flex-end'}}>
-                    <Button onClick={handleClose}>Close</Button>
-                    <Button  type='submit'>Create</Button>
+                    <Button onClick={handleClose}
+                        sx={{mt:3, mr:3}}
+                        size="small"
+                        color="primary"
+                        variant="contained"
+                    >Close</Button>
+                    <LoadingButton
+                        type='submit'
+                        size="small"
+                        color="primary"
+                        loading={props.isLoading}
+                        variant="contained"
+                        >
+                        Create
+                    </LoadingButton>
                 </Box>
             </Box>
         </DialogContent>
