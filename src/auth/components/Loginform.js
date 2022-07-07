@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { InputLabel } from '@mui/material';
 import OutlinedInput from '@mui/material/OutlinedInput';
+import { LoadingButton } from '@mui/lab';
 
 function LoginForm(props) {
     const [form,setForm] = useState({
@@ -77,12 +78,15 @@ function LoginForm(props) {
                 />
             </Box>
         
-            <Button
-              type='submit'
-             variant="contained" size="medium"
+            <LoadingButton
+                type='submit'
+                size="medium"
+                color="primary"
+                loading={props.isLoading}
+                variant="contained"
             >
                 Sign In
-            </Button>
+            </LoadingButton>
           </Box>
   );  
 }

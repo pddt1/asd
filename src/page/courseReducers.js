@@ -1,8 +1,6 @@
 const initialState = {
     data:[],
     isLoading: false,
-    isSuccess: false
-
 }
 export function Course(state = initialState, action) {
     const { type, payload } = action;
@@ -11,7 +9,6 @@ export function Course(state = initialState, action) {
         return {
             ...state,
             isLoading: true,
-            isSuccess: false
         };
       case 'CREATE_COURSE_SUCCESS':
         return {

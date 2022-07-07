@@ -12,6 +12,8 @@ export const createNewUser = (name, email,role) => async dispatch => {
         const response = await UserService.createUser(name, email, role);
         dispatch(createUserSuccess(response.data.log));
     } catch (error) {
+        console.log('error :>> ', error);
+
         dispatch(createUserFail('error'));
     }
 }

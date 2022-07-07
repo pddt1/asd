@@ -1,5 +1,4 @@
 import axios from "axios";
-import authHeader from './auth-header';
 export const customAxios = axios.create({
     baseURL: 'http://localhost:8000',
 });
@@ -11,14 +10,13 @@ customAxios.interceptors.request.use((config) => {
   } 
   return config;
 })
-customAxios.interceptors.response.use(
-    response => response,
-    error => {
-      if (error.response.status === 401) {
-        window.location.href = '/login';
-      }
-      return error;
-});
+// customAxios.interceptors.response.use(
+//     response => response,
+//     error => {
+//       if (error.response.status === 401) {
+//         window.location.href = '/login';
+//       }
+// });
 export default customAxios;
 
   

@@ -1,6 +1,6 @@
 import customAxios from "../lib/customAxios";
 
-const API_URL = "http://localhost:8000/";
+
 class AuthService {
   login(email, password) {
     return customAxios

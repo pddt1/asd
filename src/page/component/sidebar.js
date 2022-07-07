@@ -1,93 +1,86 @@
-import { useState,useEffect } from 'react'; 
-import {useSelector, useDispatch} from 'react-redux';
-import { styled, useTheme,  alpha } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import ArticleIcon from '@mui/icons-material/Article';
-import BookIcon from '@mui/icons-material/Book';
-import { makeStyles } from '@mui/styles';
-import AuthService from '../../services/auth';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { styled, useTheme, alpha } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import ArticleIcon from "@mui/icons-material/Article";
+import { makeStyles } from "@mui/styles";
+import { useNavigate } from "react-router-dom";
+import LogoutIcon from '@mui/icons-material/Logout';
+import { Button } from "@mui/material";
+
 const drawerWidth = 300;
 
 const useStyles = makeStyles({
-    icon: {
-        color: 'white'
-    }
+  icon: {
+    color: "white",
+  },
 });
-const DrawerHeader = styled('div')(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
-  }));
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: "flex-end",
+}));
 
 function Sidebar(props) {
-    let navigator = useNavigate();
+  const menu = [
+    {id:1, title: 'User'},
+    {id:2, title: 'Log Out', onItemClick: () => {
+      props.logOut();
+    }}
+  ];
+  const classes = useStyles();
 
-    const dispatch = useDispatch();
-    const classes = useStyles();
-    // function handleClick(e) {
-    //     // if (e.target.innerHTML === 'Log Out') {
-    //     //     AuthService.logout();
-    //     //     dispatch({
-    //     //       type: 'LOGOUT',
-    //     //     });
-    //     }
-    
+
   return (
     <Drawer
-    sx={{
+      sx={{
         width: drawerWidth,
         flexShrink: 0,
-        '& .MuiDrawer-paper': {
-            backgroundColor: '#1B2430',
-            color: 'white',
-            width: drawerWidth,
-            boxSizing: 'border-box',
+        "& .MuiDrawer-paper": {
+          backgroundColor: "#1B2430",
+          color: "white",
+          width: drawerWidth,
+          boxSizing: "border-box",
         },
-    }}
-    variant="persistent"
-    anchor="left"
-    open={true}
->
-     <DrawerHeader>
+      }}
+      variant="persistent"
+      anchor="left"
+      open={true}
+    >
+      <DrawerHeader>
         <IconButton>
-           <ChevronLeftIcon className={classes.icon} />
+          <ChevronLeftIcon className={classes.icon} />
         </IconButton>
-    </DrawerHeader>
-    <List>
-        {['User', 'Log Out'].map((text, index) => (
-            <ListItem key={index} disablePadding >
-                <ListItemButton>
-                    <ListItemIcon>
-                        {<ArticleIcon className={classes.icon}/> }
-                    </ListItemIcon>
-                    <ListItemText primary={text} />
-                </ListItemButton>
-            </ListItem>
+      </DrawerHeader>
+      <List>
+        
+        {menu.map((item, index) => (
+          <ListItem key={item.id} disablePadding onClick={item.onItemClick}>
+            <ListItemButton>
+              <ListItemIcon>
+                {<ArticleIcon className={classes.icon} />}
+              </ListItemIcon>
+              <ListItemText primary={item.title} />
+            </ListItemButton>
+          </ListItem>
         ))}
-    </List>
-    <Divider/>
-
-   
-</Drawer>
-  );  
+      </List>
+      <Divider />
+    </Drawer>
+  );
 }
 
 export default Sidebar;

@@ -39,6 +39,7 @@ export default function Login() {
 
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(state => state.Auth.isLoggedIn);
+  const isLoading = useSelector(state => state.Auth.isLoading);
 
   useEffect(() => {
     console.log('isLoggedIn :>> ', isLoggedIn);
@@ -69,7 +70,7 @@ export default function Login() {
             <Typography >Your Learning Guide</Typography>
           </Box>
           
-          <LoginForm onSubmit={handleSubmit}></LoginForm>
+          <LoginForm isLoading={isLoading} onSubmit={handleSubmit}></LoginForm>
 
         </Grid>
       </Grid>

@@ -17,10 +17,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import Switch from '@mui/material/Switch';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import { createNewUser, getUserList } from '../actions';
-import { reAuth } from '../../auth/actions';
+
 
 
 const useStyles = makeStyles({
@@ -51,13 +48,15 @@ const useStyles = makeStyles({
 
 function ModalDialog(props) {
     const classes = useStyles();
-    const [form,setForm] = useState({
+    const { open} = props;
+    const {isSuccess} = useSelector(state => state.Course.isSuccess);
+
+    const [form, setForm] = useState({
         fullname:'',
         email:'',
         role:1
     });
 
-    const {isSuccess} = useSelector(state => state.Course.isSuccess);
 
     useEffect(() => {
         if(!props.open){
@@ -92,7 +91,7 @@ function ModalDialog(props) {
         <DialogTitle>New Course</DialogTitle>
         <DialogContent>
             <Box component="form" onSubmit={handleSubmit} noValidate className={classes.form}>
-                <Box sx={{ display: 'flex', flexDirection: 'row'}}>
+                <Box display='flex' flexDirection='row'>
                     <FormControl size='small' variant="standard">
                         <InputLabel shrink >Name</InputLabel>
                         <InputCustom name='name' value={form.name} onChange={handleChange} label="enter name" />
@@ -103,7 +102,7 @@ function ModalDialog(props) {
                     </FormControl>
                 </Box>
                 <Box>
-                    <FormControl sx={{mt:3, minWidth: '100%' }} size="small">
+                    <FormControl  sx={{mt:3, minWidth: '100%' }} size="small">
                         <InputLabel >Role</InputLabel>
                             <Select className={classes.select}
                                 labelId="demo-select-small"

@@ -2,22 +2,35 @@ const initialState = {
     user: null,
     message: '',
     isLoggedIn: false,
-}
+    isLoading: false
+  }
 export function Auth(state = initialState, action) {
     const { type, payload } = action;
     switch (type) {
+      case 'AUTH_LOGIN':
+        return {
+          ...state,
+          isLoading: true
+          };
       case 'AUTH_LOGIN_SUCCESS':
         return {
+          ...state,
+          isLoading: false,
           isLoggedIn: true,
           user: payload,
-          message: ''
         };
-      case 'AUTH_LOGIN_FAIL':
+      case 'AUTH_LOGIN_FAILED':
         return {
-          isLoggedIn: false,
-          user: null,
-          message: payload
+          ...state,
+          isLoading: false,
+          message: payload,
         };
+      case 'AUTH_LOGOUT':
+          return {
+            ...state,
+            user: null,
+            isLoggedIn: false
+          };
        
       default:
         return state;
